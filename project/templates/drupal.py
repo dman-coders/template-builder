@@ -1,15 +1,16 @@
-from . import BaseProject
-from .remote import RemoteProject
 import json
 from collections import OrderedDict
 
+from project.baseproject import BaseProject
+from project.remoteproject import RemoteProject
 
-class Drupal7_vanilla(BaseProject):
+
+class Drupal7Vanilla(BaseProject):
     version = '7.66'
 
     @property
     def update(self):
-        return super(Drupal7_vanilla, self).update + [
+        return super(Drupal7Vanilla, self).update + [
             "wget https://ftp.drupal.org/files/projects/drupal-{0}.tar.gz && tar xzvf drupal-{0}.tar.gz -C {1}".format(self.version, self.builddir),
             "rm drupal-{0}.tar.gz".format(self.version),
             "cp -r {0}drupal-{1}/* {0}public".format(self.builddir, self.version),
@@ -28,8 +29,10 @@ class Drupal8(RemoteProject):
                 self.builddir)
         ]
 
+
 class Drupal8multi(Drupal8):
     pass
+
 
 class Opigno(Drupal8):
     major_version = '2'
@@ -63,3 +66,4 @@ class Govcms8(RemoteProject):
             (govcms8_add_installer_paths, []),
             'cd {0} && composer require govcms/govcms --ignore-platform-reqs'.format(self.builddir)
         ]
+

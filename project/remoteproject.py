@@ -1,12 +1,11 @@
-from . import BaseProject
 import subprocess
+
+from project.baseproject import BaseProject
+
 
 class RemoteProject(BaseProject):
     '''
-    Base class for projects that need to synchronize code with an upstream source.
-
-    Projects that are based on a remote source that we then modify should use this
-    base class instead.
+    Class for projects that need to synchronize code with an upstream source.
 
     Projects extending this class MUST define the following class attributes:
     - `remote`, which is a Git URL to the upstream source.
@@ -47,7 +46,7 @@ class RemoteProject(BaseProject):
                 'Each RemoteProject subclass must contain either a major_version or upstream_branch class attribute.')
 
         # Do this last so it picks up all changes from above.
-        actions.extend(self.packageUpdateActions())
+        actions.extend(self.package_update_actions())
 
         return actions
 
